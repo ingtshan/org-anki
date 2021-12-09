@@ -9,7 +9,7 @@ Creates "Basic" or "Cloze" type notes.
 By default "Basic" cards are created where org entry's heading is the
 card front and content is the back.[fn:how] If the heading has Cloze
 syntax (={{...}}=) then the heading is used to create both the
-question and the answer, and content of the org entry is not used.
+question and the answer, and content of the org entry is not used. If the content has Cloze syntax (={{...}}=) then both the heading and content (with new line separate) is use to create Cloze card.
 
 Tags are also synchronized.
 

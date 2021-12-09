@@ -233,7 +233,7 @@ ignored."
        (model-name-and-field-values
         (cond
          ((org-anki--is-cloze front) `("Cloze" ,front))
-         ((org-anki--is-cloze back) `("Cloze" ,back))
+         ((org-anki--is-cloze back) `("Cloze" ,(concat front "\n" back )))
          (t `(,(org-anki--note-type note) ,front ,back))
          ))
        (model-name (car model-name-and-field-values))
