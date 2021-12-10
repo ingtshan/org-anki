@@ -567,16 +567,17 @@ syntax."
   (interactive)
   (let ((maybe-id (org-entry-get nil org-anki-prop-note-id)))
 
-    (when (stringp maybe-id)
+    (when (or (stringp maybe-id) (and (message "org-anki: no note id here") nil))
       (org-anki-connect-request
        (org-anki--body
         "guiBrowse"
         `(("query" . ,(concat "nid:" maybe-id))))
        (lambda (the-result)
-         (message "org-anki: note succesfully fsssound, goto anki and view"))
+         (message "org-anki: send request succesfully, please switch to anki"))
        (lambda (the-error)
-         (message "org-anki: note succesfully fsssound, goto anki and view")
-         ;; https://github.com/FooSoft/anki-connect/issues/277
+         (message "org-anki: send request succesfully, please switch to anki")
+         ;; due to issues:https://github.com/FooSoft/anki-connect/issues/277
+         ;; ignore error until it fixed
          ;; (org-anki--report-error
          ;;  "Couldn't find note, received: %s"
          ;;  the-error)
