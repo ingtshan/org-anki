@@ -562,5 +562,25 @@ syntax."
       (org-anki-cloze (car bounds) (cdr bounds) arg hint)))
    (t (error "Nothing to create cloze from"))))
 
+;;;###autoload
+(defun org-anki-browse-entry ()
+  (interactive)
+  (let ((maybe-id (org-entry-get nil org-anki-prop-note-id)))
+
+    (when (stringp maybe-id)
+      (org-anki-connect-request
+       (org-anki--body
+        "guiBrowse"
+        `(("query" . ,(concat "nid:" maybe-id))))
+       (lambda (the-result)
+         (message "org-anki: note succesfully fsssound, goto anki and view"))
+       (lambda (the-error)
+         (message "org-anki: note succesfully fsssound, goto anki and view")
+         ;; https://github.com/FooSoft/anki-connect/issues/277
+         ;; (org-anki--report-error
+         ;;  "Couldn't find note, received: %s"
+         ;;  the-error)
+         )))))
+
 (provide 'org-anki)
 ;;; org-anki.el ends here
