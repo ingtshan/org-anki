@@ -564,10 +564,11 @@ syntax."
 
 ;;;###autoload
 (defun org-anki-browse-entry ()
+  "Browse entry at point on anki's browser dialog with searching nid"
   (interactive)
   (let ((maybe-id (org-entry-get nil org-anki-prop-note-id)))
-
-    (when (or (stringp maybe-id) (and (message "org-anki: no note id here") nil))
+    (cond
+     ((stringp maybe-id)
       (org-anki-connect-request
        (org-anki--body
         "guiBrowse"
@@ -581,7 +582,8 @@ syntax."
          ;; (org-anki--report-error
          ;;  "Couldn't find note, received: %s"
          ;;  the-error)
-         )))))
+         )))
+     (t (message "org-anki: no note id here")))))
 
 (provide 'org-anki)
 ;;; org-anki.el ends here
